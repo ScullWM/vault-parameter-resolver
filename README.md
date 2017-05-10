@@ -4,7 +4,7 @@ Vault parameter resolver
 [Vault by HashiCorp](https://www.vaultproject.io/) parameter resolver. A tool for managing secrets.
 
 This application will resolve your vault parameters in files.
-`%vault(secret/mynamespace#myfield)` will be replaced by the content of this command: `vault read -field=myfield secret/mynamespace`
+`%vault(secret/mynamespace#myfield)%` will be replaced by the content of this command: `vault read -field=myfield secret/mynamespace`
 
 ## Installation
 
