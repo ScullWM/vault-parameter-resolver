@@ -1,0 +1,30 @@
+{
+    "name": "inextensodigital/vault-parameter-resolver",
+    "description": "Resolve vault parameter in files.",
+    "keywords": ["vault", "secret", "parameter"],
+    "type": "standalone",
+    "homepage": "https://github.com/inextensodigital/vault-parameter-resolver",
+    "license": "MIT",
+    "authors": [{
+        "name": "Community contributors",
+        "homepage": "https://github.com/inextensodigital/vault-parameter-resolver/contributors"
+    }],
+    "require": {
+        "php": ">=5.5",
+        "symfony/config": "~3.2",
+        "symfony/console": "~3.2",
+        "symfony/finder": "~3.2",
+        "symfony/yaml": "~3.2",
+        "guzzlehttp/guzzle": "~6.2"
+    },
+    "autoload":     {
+        "psr-4": { "IED\\VaultParameterResolver\\": "src/" }
+    },
+    "bin": [
+        "vault-parameter-resolver"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "stable"
+}
