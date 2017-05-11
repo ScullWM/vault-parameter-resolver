@@ -24,12 +24,15 @@ VaultParameterResolver binary path: `~/.composer/vendor/bin/vault-parameter-reso
 
 ```sh
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt
+# You can specify a configuration file
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt -c /path/to/my-config-file.yml
 ```
 
 ## Configuration
 
-Backend configuration must be defined. Example:
+If you don't define configuration, it'll use env variables `VAULT_TOKEN` and `VAULT_ADDR`.
+
+You can use other backends via configuration file:
 
 ```yaml
 vault:

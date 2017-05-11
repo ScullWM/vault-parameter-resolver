@@ -2,6 +2,7 @@
 
 namespace IED\VaultParameterResolver\Console\Command;
 
+use IED\VaultParameterResolver\ConfigLoader\EnvConfigLoader;
 use IED\VaultParameterResolver\ConfigLoader\YamlFileConfigLoader;
 use IED\VaultParameterResolver\Processor\FileProcessor;
 use Symfony\Component\Console\Command\Command;
@@ -21,7 +22,7 @@ class ResolverCommand extends Command
         $this
             ->setName('resolve')
             ->setDescription('Resolve parameter files.')
-            ->addOption('config', 'c', InputOption::VALUE_OPTIONAL, 'Config path', '.vault.yml')
+            ->addOption('config', 'c', InputOption::VALUE_OPTIONAL, 'Config path')
             ->addOption('file', 'f', InputOption::VALUE_IS_ARRAY ^ InputOption::VALUE_REQUIRED, 'Files to resolve.')
             ;
     }
@@ -37,16 +38,20 @@ class ResolverCommand extends Command
 
         $config    = $this->buildConfiguration($input);
         $processor = new FileProcessor();
+        $errors    = false;
 
         foreach ($input->getOption('file') as $file) {
             $output->write(sprintf('Process file “<comment>%s</comment>“: ', $file));
             try {
-                $nbReplacements = $processor->process($file, $config->getAuthBackend());
+                $nbReplacements = $processor->process($file, $config->getGateway());
                 $output->writeln(sprintf('<info>%d</info> resolved parameters.', count($nbReplacements)));
             } catch (\Exception $e) {
+                $errors = true;
                 $output->writeln(sprintf('<error>Error: %s</error>', $e->getMessage()));
             }
         }
+
+        return $errors ? 1 : 0;
     }
 
     /**
@@ -57,6 +62,10 @@ class ResolverCommand extends Command
     private function buildConfiguration(InputInterface $input)
     {
         $file = $input->getOption('config');
+
+        if (null === $file) {
+            return EnvConfigLoader::load();
+        }
 
         if (false === is_file($file)) {
             throw new \InvalidArgumentException(sprintf('%s file not found.', $file));

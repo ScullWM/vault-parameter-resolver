@@ -2,19 +2,19 @@
 
 namespace IED\VaultParameterResolver\Configuration;
 
-use IED\VaultParameterResolver\Auth\BackendInterface as AuthBackendInterface;
+use IED\VaultParameterResolver\Gateway\GatewayInterface;
 
 class Configuration
 {
-    private $authBackend;
+    private $gateway;
 
-    public function __construct(AuthBackendInterface $authBackend)
+    public function __construct(GatewayInterface $gateway)
     {
-        $this->authBackend = $authBackend;
+        $this->gateway = $gateway;
     }
 
-    public function getAuthBackend()
+    public function getGateway()
     {
-        return $this->authBackend;
+        return $this->gateway;
     }
 }

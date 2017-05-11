@@ -2,11 +2,12 @@
 
 namespace IED\VaultParameterResolver\ConfigLoader;
 
-use Symfony\Component\Config\Definition\Processor;
-use IED\VaultParameterResolver\Configuration\Configuration;
 use IED\VaultParameterResolver\Auth\AppRoleBackend;
+use IED\VaultParameterResolver\Configuration\Configuration;
+use IED\VaultParameterResolver\Gateway\HttpGateway;
+use Symfony\Component\Config\Definition\Processor;
 
-class ArrayConfigLoader implements ConfigLoaderInterface
+class ArrayConfigLoader
 {
     public static function load($config)
     {
@@ -23,7 +24,9 @@ class ArrayConfigLoader implements ConfigLoaderInterface
             $backend = static::configureAppRoleBackend($config['auth']['app_role'], $host);
         }
 
-        return new Configuration($backend);
+        return new Configuration(
+            new HttpGateway($config['host'], $backend)
+        );
     }
 
     private static function configureAppRoleBackend(array $properties, $host)

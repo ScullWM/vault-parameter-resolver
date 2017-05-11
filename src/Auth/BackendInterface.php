@@ -4,7 +4,15 @@ namespace IED\VaultParameterResolver\Auth;
 
 use IED\VaultParameterResolver\VaultKey;
 
+/**
+ * BackendInterface
+ *
+ * @author Stephane PY <s.py@xeonys.com>
+ */
 interface BackendInterface
 {
-    public function resolve(VaultKey $key);
+    /**
+     * @return string
+     */
+    public function generateToken();
 }
