@@ -26,6 +26,8 @@ VaultParameterResolver binary path: `~/.composer/vendor/bin/vault-parameter-reso
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt
 # You can specify a configuration file
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt -c /path/to/my-config-file.yml
+# You can enter value when they are not exist.
+$ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt --ask-if-not-found
 ```
 
 ## Configuration

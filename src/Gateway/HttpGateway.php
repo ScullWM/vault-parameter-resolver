@@ -59,6 +59,26 @@ class HttpGateway implements GatewayInterface
         return $this->keyPool[$key->getNamespace()][$key->getField()];
     }
 
+    public function write(VaultKey $key, $value)
+    {
+        if (null === $this->currentToken) {
+            $this->generateToken();
+        }
+
+        $request = new Request(
+            'POST',
+            $this->host.'/v1/'.$key->getNamespace(),
+            ['X-Vault-Token' => $this->currentToken],
+            json_encode([$key->getField() => $value])
+        );
+
+        try {
+            (new HttpClient())->send($request);
+        } catch (\Exception $e) {
+            throw VaultExceptionFactory::create($e);
+        }
+    }
+
     private function generateToken()
     {
         $this->currentToken = $this->backend->generateToken();

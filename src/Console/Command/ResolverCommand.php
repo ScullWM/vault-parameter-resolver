@@ -24,6 +24,7 @@ class ResolverCommand extends Command
             ->setDescription('Resolve parameter files.')
             ->addOption('config', 'c', InputOption::VALUE_OPTIONAL, 'Config path')
             ->addOption('file', 'f', InputOption::VALUE_IS_ARRAY ^ InputOption::VALUE_REQUIRED, 'Files to resolve.')
+            ->addOption('ask-if-not-found', null, InputOption::VALUE_NONE, 'If key does not exists, create it.')
             ;
     }
 
@@ -37,7 +38,13 @@ class ResolverCommand extends Command
         }
 
         $config    = $this->buildConfiguration($input);
-        $processor = new FileProcessor();
+
+        if ($input->getOption('ask-if-not-found')) {
+            $processor = new FileProcessor($this->getHelper('question'), $input, $output);
+        } else {
+            $processor = new FileProcessor();
+        }
+
         $errors    = false;
 
         foreach ($input->getOption('file') as $file) {

@@ -9,5 +9,5 @@ namespace IED\VaultParameterResolver;
  */
 class VaultParameterResolver
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 }

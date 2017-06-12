@@ -22,6 +22,10 @@ class VaultExceptionFactory
             throw new AccessDeniedException($e->getMessage(), 0, $e);
         }
 
+        if ($e->getResponse()->getStatusCode() === 404) {
+            throw new NotFoundVaultKeyException($e->getMessage(), 0, $e);
+        }
+
         return new VaultException($e->getMessage(), 0, $e);
     }
 }
