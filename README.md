@@ -18,7 +18,7 @@ This application will resolve your vault parameters in files.
 
 `composer global require "inextensodigital/vault-parameter-resolver=~1.0"`
 
-VaultParameterResolver binary path: `~/.composer/vendor/bin/vault-parameter-resolver
+VaultParameterResolver binary path: `~/.composer/vendor/bin/vault-parameter-resolver`
 
 ## Commands
 
