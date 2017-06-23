@@ -26,7 +26,7 @@ class FileProcessor
         $this->output = $output;
     }
 
-    public function process($file, GatewayInterface $gateway)
+    public function process($file, GatewayInterface $gateway, $writeChanges = true)
     {
         if (false === is_file($file)) {
             throw new \InvalidArgumentException(sprintf('File %s does not exist.', $file));
@@ -46,7 +46,7 @@ class FileProcessor
                     throw $e;
                 }
 
-                $question = new Question(sprintf('No value found for key "<info>%s</info>", please set a value:', $vaultKey->getNamespace().'#'.$vaultKey->getField()));
+                $question = new Question(sprintf('No value found for key "<info>%s</info>", '.PHP_EOL.'please set a value:', $vaultKey->getNamespace().'#'.$vaultKey->getField()));
                 $value = $this->questionHelper->ask($this->input, $this->output, $question);
 
                 $gateway->write($vaultKey, $value);
@@ -55,7 +55,9 @@ class FileProcessor
             }
         }
 
-        file_put_contents($file, str_replace(array_keys($replacements), array_values($replacements), $content));
+        if ($writeChanges) {
+            file_put_contents($file, str_replace(array_keys($replacements), array_values($replacements), $content));
+        }
 
         return $replacements;
     }

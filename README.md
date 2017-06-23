@@ -28,6 +28,8 @@ $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt -c /path/to/my-config-file.yml
 # You can enter value when they are not exist.
 $ ./vault-parameter-resolver.phar resolve -f myfile.yml -f myfile2.txt --ask-if-not-found
+# You can check if all value is defined in vault or enter ir if missing.
+$ ./vault-parameter-resolver.phar check -f myfile.yml -f myfile2.txt
 ```
 
 ## Configuration

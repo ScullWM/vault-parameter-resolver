@@ -21,6 +21,7 @@ class Application extends BaseApplication
 
         $this->add(new Command\CompileCommand());
         $this->add(new Command\ResolverCommand());
+        $this->add(new Command\CheckCommand());
         $this->add(new Command\SelfUpdateCommand());
     }
 }
