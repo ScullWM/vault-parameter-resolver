@@ -20,6 +20,14 @@ This application will resolve your vault parameters in files.
 
 VaultParameterResolver binary path: `~/.composer/vendor/bin/vault-parameter-resolver`
 
+## Move it to bin
+Required for deployment:
+
+```
+chmod +x vault-parameter-resolver.phar
+mv vault-parameter-resolver.phar /usr/local/bin/vault-parameter-resolver
+```
+
 ## Commands
 
 ```sh
